@@ -1,0 +1,96 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>ua.nure.tkachenko</groupId>
+  <artifactId>applb2</artifactId>
+  <packaging>war</packaging>
+  <version>1.0-SNAPSHOT</version>
+  <name>applb2 Maven Webapp</name>
+  <url>http://maven.apache.org</url>
+      <properties>
+	  <maven.compiler.source>11</maven.compiler.source>
+	  <maven.compiler.target>11</maven.compiler.target>
+  </properties>
+  <dependencies>
+<dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+	<dependency>
+		<groupId>javax.servlet</groupId>
+		<artifactId>javax.servlet-api</artifactId>
+		<version>4.0.1</version>
+		<scope>provided</scope>
+	</dependency>
+	<dependency>
+		<groupId>jakarta.servlet</groupId>
+		<artifactId>jakarta.servlet-api</artifactId>
+		<version>6.0.0</version>
+		<scope>provided</scope>
+	</dependency>
+	<dependency>
+		<groupId>jstl</groupId>
+		<artifactId>jstl</artifactId>
+		<version>1.2</version>
+	</dependency>
+	<dependency>
+		<groupId>taglibs</groupId>
+		<artifactId>standard</artifactId>
+		<version>1.1.2</version>
+	</dependency>
+	<dependency>
+		<groupId>com.microsoft.sqlserver</groupId>
+		<artifactId>mssql-jdbc</artifactId>
+		<version>11.2.1.jre8</version>
+	</dependency>
+	  <dependency>
+	    <groupId>org.apache.logging.log4j</groupId>
+	    <artifactId>log4j-api</artifactId>
+	    <version>2.13.0</version>
+	  </dependency>
+	  <dependency>
+	    <groupId>org.apache.logging.log4j</groupId>
+	    <artifactId>log4j-core</artifactId>
+	    <version>2.13.0</version>
+	  </dependency>
+
+  </dependencies>
+  <build>
+    <finalName>applb2</finalName>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <version>1.8</version>
+            <configuration>
+                <target>
+					<property name="tomcat.home.dir"
+					    location="D:\apache-tomcat-9\apache-tomcat-9.0.69\apache-tomcat-9.0.69" />
+					<path id="tomcat.classpath">
+					    <fileset dir="${tomcat.home.dir}/lib">
+					        <include name="catalina-ant.jar" />
+					        <include name="tomcat-coyote.jar" />
+					        <include name="tomcat-util.jar" />
+					    </fileset>
+					    <fileset dir="${tomcat.home.dir}/bin">
+					        <include name="tomcat-juli.jar" />
+					    </fileset>
+					</path>
+					<taskdef name="reload"
+					    classname="org.apache.catalina.ant.ReloadTask"
+					    classpathref="tomcat.classpath" />
+					<reload url="http://localhost:8080/manager/text" 
+					    username="manager" password="manager" path="/applb2" />
+                </target>
+            </configuration>
+        </plugin>
+        <plugin>
+		    <groupId>org.apache.maven.plugins</groupId>
+		    <artifactId>maven-war-plugin</artifactId>
+		    <version>3.3.1</version>
+		</plugin>
+    </plugins>
+  </build>
+</project>
